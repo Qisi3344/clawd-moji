@@ -173,17 +173,17 @@ def titanic():
         t=i/48
         # Rose: lifted overhead, arms spread, "I'm flying"
         r=eyes(base(arms=False),1,-1,blink=(i in (30,31)))
-        arm=[(x,9) for x in range(-2,2)]+[(-2,8)]
+        arm=[(0,9),(1,9),(0,8)]
         put(r,arm+[(14-x,y) for x,y in arm],BODY)
-        put(r,rect(2,10,12,10),SH); put(r,[(x,8) for x in range(-1,2)]+[(x,8) for x in range(13,16)]+[(1,9),(13,9),(2,11),(12,11),(2,12),(12,12)],SH); put(r,[(5,10),(9,10),(0,8),(14,8)],SH2)
+        put(r,rect(2,10,12,10),SH); put(r,[(1,8),(13,8)]+[(1,9),(13,9),(2,11),(12,11),(2,12),(12,12)],SH); put(r,[(5,10),(9,10)],SH2)
         for k in range(1,8):
             y=9+round(1.3*math.sin(TAU*3*t+k*0.9))+(k//3)
-            put(r,[(-1-k,y)],SH if k%2 else SH2)
-            if k<6: put(r,[(-1-k,y+1)],SH)
+            put(r,[(-k,y)],SH if k%2 else SH2)
+            if k<6: put(r,[(-k,y+1)],SH)
         r=shift(r,0,RY)
         # Jack: standing on the deck, holding her up
         j=eyes(base(arms=False),0,-1,blink=(i in (12,13)))
-        fly=[(x,10) for x in range(-2,2)]+[(-2,9)]
+        fly=[(0,10),(1,10),(0,9)]
         put(j,fly+[(14-x,y) for x,y in fly],BODY)
         sway=1.5*math.sin(TAU*t)
         rl=xform(r,0,0,rot=sway,piv=(7.5,5.5))
