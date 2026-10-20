@@ -168,7 +168,7 @@ def _shawshank_base():
     return fr
 # ---------- 泰坦尼克 ----------
 def titanic():
-    fr=[]; SH='#6B2840'; SH2='#8E3A57'; RY=-11
+    fr=[]; SH='#6B2840'; SH2='#8E3A57'; RY=-9
     for i in range(48):
         t=i/48
         # Rose: lifted overhead, arms spread, "I'm flying"
@@ -182,11 +182,11 @@ def titanic():
             if k<6: put(r,[(-1-k,y+1)],SH)
         r=shift(r,0,RY)
         # Jack: standing on the deck, holding her up
-        j=eyes(base(),0,-1,blink=(i in (12,13)))
-        lift=[(0,y) for y in range(4,9)]+[(1,4),(2,4),(3,4)]
+        j=eyes(base(arms=False),0,-1,blink=(i in (12,13)))
+        lift=[(x,y) for x in (0,1) for y in range(2,8)]
         put(j,lift+[(14-x,y) for x,y in lift],BODY)
         sway=1.5*math.sin(TAU*t)
-        rl=xform(r,0,0,rot=sway,piv=(7.5,3.5))
+        rl=xform(r,0,0,rot=sway,piv=(7.5,5.5))
         deck={}; put(deck,rect(-4,15,14,15),'#C99A5B'); put(deck,[(15,15),(16,15),(17,15)],'#C99A5B'); put(deck,rect(-4,16,15,16),'#2B3A55')
         put(deck,[(x,16) for x in range(-4,16) if (x+i)%5==0],'#3E5277')
         wind={}
