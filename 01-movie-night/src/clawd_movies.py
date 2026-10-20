@@ -182,7 +182,7 @@ def titanic():
             put(b,[(-1-k,y)],SH if k%2 else SH2)
             if k<6: put(b,[(-1-k,y+1)],SH)
         # Jack: behind her, a bit taller, hands round her waist
-        j=shift(eyes(base(arms=False,legs=False),1,0,blink=(i in (12,13))),-2,-4)
+        j=shift(eyes(base(arms=False,legs=False),1,-2,blink=(i in (12,13))),-2,-2)
         jj={}
         for (x,y),c in j.items():
             if (x,y) in b: continue
