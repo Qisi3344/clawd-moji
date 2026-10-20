@@ -14,7 +14,7 @@
 | 6 | 第九克 District 9 | <img src="gif/district9.gif" width="120"> | 母舰滴下的黑液让手变成虾钳，吓得狂甩 |
 | 7 | 黑客帝克 The Matrix | <img src="gif/matrix.gif" width="120"> | 黑风衣，代码雨里下腰躲子弹 |
 | 8 | 寻梦环游克 Coco | <img src="gif/coco.gif" width="120"> | 万寿菊花瓣和彩旗下弹吉他 |
-| 9 | X战警 X-Men | <img src="gif/wolverine.gif" width="120"> | 金刚狼发型，欻欻欻弹出精钢爪 |
+| 9 | 金刚克 Wolverine | <img src="gif/wolverine.gif" width="120"> | 金刚狼发型，欻欻欻弹出精钢爪 |
 | 10 | 电锯惊克 Saw | <img src="gif/saw.gif" width="120"> | 雪花屏后出现在监控屏幕里（REC 闪烁），屏幕上一个字一个字打出 PLAY GAME，凑近、歪头、装深沉，然后信号断开 |
 
 ## 自己生成
