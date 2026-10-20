@@ -175,7 +175,8 @@ def titanic():
         r=eyes(base(arms=False),1,-1,blink=(i in (30,31)))
         arm=rect(0,7,1,8)  # official arms-up
         put(r,arm+[(14-x,y) for x,y in arm],BODY)
-        put(r,rect(2,10,12,10),SH); put(r,[(1,8),(13,8)]+[(1,9),(13,9),(2,11),(12,11),(2,12),(12,12)],SH); put(r,[(5,10),(9,10)],SH2)
+        # shawl hangs behind her: only the edges show at shoulders and sides, nothing across the front
+        put(r,[(1,8),(13,8),(2,10),(12,10),(2,11),(12,11),(2,12),(12,12)],SH); put(r,[(2,9),(12,9)],SH2)
         for k in range(1,8):
             y=9+round(1.3*math.sin(TAU*3*t+k*0.9))+(k//3)
             put(r,[(-k,y)],SH if k%2 else SH2)
