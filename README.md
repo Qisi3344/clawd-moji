@@ -23,7 +23,7 @@ Clawd 表情包合集。主角是 Claude Code 的像素小螃蟹 Clawd，一套�
   <tr>
     <td align="center" width="20%"><img src="01-movie-night/gif/district9.gif" width="110" alt="第九克"><br><sub>第九克</sub></td>
     <td align="center" width="20%"><img src="01-movie-night/gif/matrix.gif" width="110" alt="黑克帝国"><br><sub>黑克帝国</sub></td>
-    <td align="center" width="20%"><img src="01-movie-night/gif/coco.gif" width="110" alt="寻梦环游克"><br><sub>寻梦环游克</sub></td>
+    <td align="center" width="20%"><img src="01-movie-night/gif/coco.gif" width="110" alt="寻克环游记"><br><sub>寻克环游记</sub></td>
     <td align="center" width="20%"><img src="01-movie-night/gif/wolverine.gif" width="110" alt="金刚克"><br><sub>金刚克</sub></td>
     <td align="center" width="20%"><img src="01-movie-night/gif/saw.gif" width="110" alt="电锯惊克"><br><sub>电锯惊克</sub></td>
   </tr>
