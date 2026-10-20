@@ -509,7 +509,16 @@ def saw():
             elif k<5: scr={(7,4):'#FFFFFF',(8,4):'#F2F2F2'}
             for y in range(Y0,Y1+1):
                 for x in range(X0,X1+1): scr.setdefault((x,y),'#0E110E')
-        fr.append((comp(shadow(0,y=Y1+4),scr,ch,tv),60))
+        txt=None
+        if 14<=i<50:
+            txt=Image.new('RGBA',canvas().size,(0,0,0,0)); word='PLAY GAME'; px=3
+            shown=word[:max(0,min(len(word),(i-14)//2+1))]
+            total=FT.getlength(word); x0=(X0+OX)*S+((X1-X0+1)*S-total*px)/2; y0=(Y0+OY)*S+6
+            if not (44<=i<50 and i%2):
+                m=Image.new('L',(int(total)+2,16),0); ImageDraw.Draw(m).text((0,0),shown,font=FT,fill=255)
+                m=m.point(lambda v:255 if v>100 else 0).resize(((int(total)+2)*px,16*px),Image.NEAREST)
+                txt.paste(Image.new('RGBA',m.size,'#E0323A'),(round(x0),round(y0)),m)
+        fr.append((comp(shadow(0,y=Y1+4),scr,ch,txt,tv),60))
     fr[40]=(fr[40][0],400)
     return fr
 
