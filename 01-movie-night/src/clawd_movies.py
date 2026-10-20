@@ -1,9 +1,9 @@
 """
 clawd-moji · 01 movie-night
-Generates the 8 animated Clawd stickers in ../gif/.
+Generates the 10 animated Clawd stickers in ../gif/.
 
   pip install pillow
-  python clawd_movies.py            # all 8
+  python clawd_movies.py            # all 10
   python clawd_movies.py matrix     # just one
 
 The "Free" text in shawshank uses the Zpix pixel font
@@ -177,6 +177,9 @@ def titanic():
         put(r,arm+[(14-x,y) for x,y in arm],BODY)
         # shawl hangs behind her: only the edges show at shoulders and sides, nothing across the front
         put(r,[(1,8),(13,8),(2,10),(12,10),(2,11),(12,11),(2,12),(12,12)],SH); put(r,[(2,9),(12,9)],SH2)
+        # Heart of the Ocean on her chest (no chain: a pale line under the eyes reads as a mouth)
+        put(r,[(6,10),(8,10),(6,11),(7,11),(8,11),(7,12)],'#2F7BF0')
+        put(r,[(6,10)],'#A8D8FF' if (i//6)%4 else '#FFFFFF')
         for k in range(1,8):
             y=9+round(1.3*math.sin(TAU*3*t+k*0.9))+(k//3)
             put(r,[(-k,y)],SH if k%2 else SH2)
@@ -380,7 +383,107 @@ def coco():
         fr.append((comp(pp,pet,shadow(0),ch,notes),60))
     return fr
 
-ALL=['arrival','interstellar','shawshank','titanic','wukong','district9','matrix','coco']
+
+# ---------- X战警 · 金刚狼 ----------
+def wolverine():
+    fr=[]; HR='#26262B'; HR2='#3D3D45'; CL='#FFFFFF'; CL2='#A3AEBC'
+    hair=[(x,5) for x in range(2,13)]+[(2,4),(3,4),(1,4),(1,3),(0,2),(0,3),(12,4),(11,4),(13,4),(13,3),(14,2),(14,3),(6,4),(7,4),(8,4),(7,3)]
+    burns=[(2,6),(2,7),(2,8),(12,6),(12,7),(12,8)]
+    pops=[14,22,30]          # 欻 欻 欻
+    for i in range(56):
+        p=eyes(base(),-1 if i<8 else 0, 0, blink=(i in (46,47)))
+        put(p,hair,HR); put(p,[(1,3),(13,3),(7,3)],HR2); put(p,burns,HR)
+        n=sum(1 for st in pops if i>=st) if i<44 else 0
+        ret=i>=44
+        claws={}
+        if n or ret:
+            for k,(y0,sl) in enumerate(((9,-1),(9,0),(10,1))):   # three blades fanning out of the fist
+                if ret: L=max(0,round(4*(1-ease((i-44)/5))))
+                elif k<n: L=round(kf(i-pops[k],[(0,1),(2,4)]))
+                else: L=0
+                for d in range(L):
+                    y=y0+(sl if d>=1 else 0)+(sl if d>=3 else 0)
+                    c=CL if d==L-1 else CL2
+                    claws[(-1-d,y)]=c; claws[(15+d,y)]=c
+        p.update(claws)
+        # glint running along the claws while they're all out
+        if 32<=i<42:
+            g=(i-32)//2
+            for x in (-1-g,15+g):
+                if (x,9) in p and p[(x,9)]==CL2: p[(x,9)]='#E6ECF3'
+        jolt=0; sq=1
+        for st in pops:
+            if st-3<=i<st: sq=min(sq,kf(i,[(st-3,1),(st-1,0.86)]))
+            if st<=i<st+4: sq=kf(i,[(st,1.12),(st+2,0.97),(st+4,1)]); jolt=(1 if (i-st)%2==0 else -1)*0.4
+        ch=xform(p,jolt,-0.3*(sq>1.05),**squash(sq))
+        spark={}
+        for st in pops:
+            if st<=i<st+3:
+                r=i-st+1
+                if r<3:
+                    for sx in (-3,17):
+                        spark.update({(sx,5-r):'#FFD166',(sx,5+r):'#FFD166',(sx-r,5):'#FFD166',(sx+r,5):'#FFD166'})
+        fr.append((comp(shadow(0),ch,spark),60))
+    return fr
+
+# ---------- 电锯惊魂 ----------
+def saw():
+    import random
+    rnd=random.Random(7); fr=[]
+    FR='#4A4A52'; FR2='#2E2E34'; SC='#1B211C'; SL='#232B24'
+    X0,Y0,X1,Y1=-2,-3,16,12
+    for i in range(60):
+        tv={}
+        put(tv,[(x,y) for x in range(X0-1,X1+2) for y in (Y0-1,Y1+1)]+[(x,y) for y in range(Y0-1,Y1+2) for x in (X0-1,X1+1)],FR)
+        put(tv,[(x,Y1+1) for x in range(X0-1,X1+2)],FR2)
+        put(tv,[(4,Y0-2),(3,Y0-3),(10,Y0-2),(11,Y0-3)],FR)
+        put(tv,[(1,Y1+2),(13,Y1+2),(0,Y1+3),(14,Y1+3)],FR2)
+        on=8<=i<54
+        scr={}
+        for y in range(Y0,Y1+1):
+            for x in range(X0,X1+1):
+                if i<8 or 50<=i<54 and rnd.random()<0.35:
+                    v=rnd.choice(['#2A2A2A','#6A6A6A','#A8A8A8','#DADADA'])
+                    scr[(x,y)]=v
+                else: scr[(x,y)]=SL if y%2 else SC
+        if i in (8,9): scr={k:('#DADADA' if (k[1]+i)%3==0 else v) for k,v in scr.items()}
+        # Clawd inside, lit from below, slowly leaning in
+        ch=None
+        if on:
+            p=eyes(base(dy=-2,legs=False),0 if i<24 else (1 if i<40 else 0),-2,blink=(i in (37,38)))
+            for y in (11,12): 
+                for x in (3,5,9,11): p[(x,y)]=BODY
+            dark={}
+            for (x,y),c in p.items():
+                if c==BODY: dark[(x,y)]=BODYD if y<=5 else BODY
+                else: dark[(x,y)]=c
+            z=kf(i,[(10,1),(44,1.14)])
+            rot=kf(i,[(20,0),(28,-7),(40,-7),(46,0)])
+            dx=0
+            if 50<=i<54: dx=rnd.choice([-1.5,1.5,0.8])
+            ch=xform(dark,dx,0,sx=z,sy=z,rot=rot,piv=(7.5,8))
+            # keep him inside the glass
+            m=Image.new('L',ch.size,0)
+            ImageDraw.Draw(m).rectangle([(X0+OX)*S,(Y0+OY)*S,(X1+1+OX)*S-1,(Y1+1+OY)*S-1],fill=255)
+            a=ch.split()[3]; ch.putalpha(Image.composite(a,m,m))
+            # scanlines over him
+            sl=Image.new('RGBA',ch.size,(0,0,0,0)); d=ImageDraw.Draw(sl)
+            for y in range(Y0,Y1+1,2): d.rectangle([(X0+OX)*S,(y+OY)*S,(X1+1+OX)*S-1,(y+OY)*S+2],fill=(0,0,0,32))
+            ch.alpha_composite(sl)
+        # CRT switch-off: collapse to a line, then a dot
+        if i>=54:
+            scr={}
+            k=i-54
+            if k<3:
+                for x in range(X0+k*3,X1+1-k*3): scr[(x,4)]='#F2F2F2'
+            elif k<5: scr={(7,4):'#FFFFFF',(8,4):'#F2F2F2'}
+            for y in range(Y0,Y1+1):
+                for x in range(X0,X1+1): scr.setdefault((x,y),'#0E110E')
+        fr.append((comp(shadow(0,y=Y1+4),scr,ch,tv),60))
+    fr[40]=(fr[40][0],400)
+    return fr
+
+ALL=['arrival','interstellar','shawshank','titanic','wukong','district9','matrix','coco','wolverine','saw']
 if __name__=='__main__':
     for nm in (sys.argv[1:] or ALL):
         save(nm,globals()[nm]())
