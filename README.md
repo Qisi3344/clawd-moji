@@ -8,7 +8,7 @@ Clawd 表情包合集。主角是 Claude Code 的像素小螃蟹 Clawd，一套�
 
 | 编号 | 主题 | 内容 | 状态 |
 |---|---|---|---|
-| 01 | [movie-night](01-movie-night/) | 影视主题 · 8 个 | 完成 |
+| 01 | [movie-night](01-movie-night/) | 影视主题 · 10 个 | 完成 |
 
 ### 01 · movie-night
 
