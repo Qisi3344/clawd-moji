@@ -183,8 +183,8 @@ def titanic():
         r=shift(r,0,RY)
         # Jack: standing on the deck, holding her up
         j=eyes(base(arms=False),0,-1,blink=(i in (12,13)))
-        lift=[(x,y) for x in (0,1) for y in range(2,8)]
-        put(j,lift+[(14-x,y) for x,y in lift],BODY)
+        fly=[(x,10) for x in range(-2,2)]+[(-2,9)]
+        put(j,fly+[(14-x,y) for x,y in fly],BODY)
         sway=1.5*math.sin(TAU*t)
         rl=xform(r,0,0,rot=sway,piv=(7.5,5.5))
         deck={}; put(deck,rect(-4,15,14,15),'#C99A5B'); put(deck,[(15,15),(16,15),(17,15)],'#C99A5B'); put(deck,rect(-4,16,15,16),'#2B3A55')
