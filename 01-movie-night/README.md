@@ -6,7 +6,7 @@
 
 | # | 片名 | 动图 | 小剧情 |
 |---|---|---|---|
-| 1 | 降克 Arrival | <img src="gif/arrival.gif" width="120"> | 盯着七肢桶的墨圈一笔画完，吓得一蹦 |
+| 1 | 降临克 Arrival | <img src="gif/arrival.gif" width="120"> | 盯着七肢桶的墨圈一笔画完，吓得一蹦 |
 | 2 | 星际穿克 Interstellar | <img src="gif/interstellar.gif" width="120"> | 穿着宇航服在卡冈图雅旁边失重翻滚 |
 | 3 | 肖申克的救赎 The Shawshank Redemption | <img src="gif/shawshank.gif" width="120"> | 从下水管里一点点挤出来，蹦上管口，雨中张开双臂，Free |
 | 4 | 泰坦尼克号 Titanic | <img src="gif/titanic.gif" width="120"> | Rose 踩在 Jack 头上，两只一起在船头张开双臂起飞，海风吹动披肩 |
