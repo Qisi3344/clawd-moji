@@ -140,8 +140,8 @@ def interstellar():
 def _shawshank_base():
     fr=[]; R='#8FB8E0'; R2='#C7DDF2'
     drops=[(-3,-5),(2,-6),(8,-4),(13,-6),(17,-3),(-2,1),(5,0),(11,1),(16,4),(-3,8),(17,11),(4,3),(10,-1),(0,-2),(15,-1),(-1,12),(18,9),(7,6),(14,9)]
-    UP=[(1,8),(0,7),(1,7),(0,6),(-1,5),(0,5),(-1,4),(-2,3)]
-    MID=[(1,9),(0,9),(0,8),(-1,8),(-1,7),(-2,7)]
+    UP=[(0,9),(1,9),(0,8),(1,8),(0,7)]
+    MID=[(0,9),(1,9),(0,10),(1,10),(0,8)]
     for i in range(48):
         rain={}
         for k,(x,y) in enumerate(drops):
@@ -151,7 +151,7 @@ def _shawshank_base():
         else:
             p=eyes(base(arms=False),0,-1,blink=(i in (30,31)))
             A=MID if (i<11 or i>=41) else UP
-            if A is UP and 18<=i<40: A=[(x,y+(1 if (i//3)%2 and x<0 else 0)) for x,y in A]
+            if A is UP and 18<=i<40: A=[(x,y+(1 if (i//3)%2 and y<8 else 0)) for x,y in A]
             put(p,A+[(14-x,y) for x,y in A],BODY)
         sq=kf(i,[(8,1),(11,0.8),(15,1.14),(19,1.04),(40,1.04),(44,1)])
         if 19<=i<40: sq=1.04+0.03*math.sin(TAU*(i-19)/10)
