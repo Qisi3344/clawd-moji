@@ -137,7 +137,7 @@ def interstellar():
         fr.append((comp(stars,bh,ch),70))
     return fr
 # ---------- 肖申克 ----------
-def _shawshank_base():
+def _shawshank_base(lift=-2, pipe=None):
     fr=[]; R='#8FB8E0'; R2='#C7DDF2'
     drops=[(-3,-5),(2,-6),(8,-4),(13,-6),(17,-3),(-2,1),(5,0),(11,1),(16,4),(-3,8),(17,11),(4,3),(10,-1),(0,-2),(15,-1),(-1,12),(18,9),(7,6),(14,9)]
     UP=rect(0,7,1,8)  # official 'arms-up': same 2x2 stub, moved up
@@ -157,14 +157,46 @@ def _shawshank_base():
         if 19<=i<40: sq=1.04+0.03*math.sin(TAU*(i-19)/10)
         dy=-kf(i,[(11,0),(15,1.4),(19,0.3),(40,0.3),(44,0)])
         rot=3.5*math.sin(TAU*(i-19)/21) if 19<=i<40 else 0
-        ch=xform(p,0,dy,rot=rot,**squash(sq))
+        ch=xform(shift(p,0,lift),0,dy,rot=rot,piv=(7.5,15+lift),**squash(sq))
         bolt=None
         if i in (15,16,18):
             bolt={(q):'#FFF6C2' for q in [(15,-7),(14,-6),(15,-5),(14,-4),(13,-3),(14,-2)]}
         splash={}
         for k,x in enumerate((1,6,13)):
             if (i+k*4)%8<2: splash.update({(x-1,15):R2,(x+1,15):R2,(x,14):R2})
-        fr.append((comp(shadow(-dy),rain,ch,bolt,splash),60))
+        fr.append((comp(rain,pipe,ch,bolt,splash),60))
+    return fr
+PIPE_C='#7D838B'; PIPE_H='#AEB4BC'; PIPE_D='#5B6068'
+def pipe_layer():
+    d={}
+    put(d,rect(1,13,13,13),PIPE_H); put(d,rect(1,14,13,14),PIPE_C)
+    put(d,rect(2,15,12,16),PIPE_D); put(d,[(1,14),(13,14)],PIPE_D)
+    return d
+def pipe_hole():
+    return {(x,13):'#2A2D31' for x in range(2,13)}
+def _shawshank_emerge(n=26):
+    fr=[]; R='#8FB8E0'; R2='#C7DDF2'
+    drops=[(-3,-5),(2,-6),(8,-4),(13,-6),(17,-3),(-2,1),(5,0),(11,1),(16,4),(-3,8),(17,11),(4,3),(10,-1),(0,-2),(15,-1),(-1,12),(18,9),(7,6),(14,9)]
+    rim_y=(13+OY)*S
+    for i in range(n):
+        rain={}
+        for k,(x,y) in enumerate(drops):
+            yy=(y+2*(i-n)+k*5)%24-7
+            for j in range(2): rain[(x-j,yy+j)]=R if j==0 else R2
+        rise=kf(i,[(3,14),(9,9),(12,8),(17,1.5),(20,0)])
+        p=eyes(base(),0 if i<14 else (-1 if i<18 else 1),-1 if i<17 else 0,blink=(i in (22,23)))
+        sq=kf(i,[(17,1),(19,1.12),(21,0.9),(24,1)])
+        wig=2.5*math.sin(TAU*i/6) if 4<=i<17 else 0
+        ch=xform(shift(p,0,-2),wig*0.08,rise-0.6*(sq>1.05),rot=wig,piv=(7.5,13),**squash(sq))
+        if rise>0.3:   # still partly inside the pipe: hide what's below the rim
+            m=Image.new('L',ch.size,255); ImageDraw.Draw(m).rectangle([0,rim_y,ch.size[0],ch.size[1]],fill=0)
+            ch.putalpha(Image.composite(ch.split()[3],m,m))
+        drip={}
+        if 12<=i<22:
+            for k,(dx,ph) in enumerate(((2,0),(12,3),(7,6))):
+                yy=7+((i-12+ph)%5)
+                drip[(dx,yy+round(rise))]=R2
+        fr.append((comp(rain,pipe_layer(),pipe_hole() if i<20 else None,ch,drip),60))
     return fr
 # ---------- 泰坦尼克 ----------
 def titanic():
@@ -177,9 +209,6 @@ def titanic():
         put(r,arm+[(14-x,y) for x,y in arm],BODY)
         # shawl hangs behind her: only the edges show at shoulders and sides, nothing across the front
         put(r,[(1,8),(13,8),(2,10),(12,10),(2,11),(12,11),(2,12),(12,12)],SH); put(r,[(2,9),(12,9)],SH2)
-        # Heart of the Ocean on her chest (no chain: a pale line under the eyes reads as a mouth)
-        put(r,[(6,10),(8,10),(6,11),(7,11),(8,11),(7,12)],'#2F7BF0')
-        put(r,[(6,10)],'#A8D8FF' if (i//6)%4 else '#FFFFFF')
         for k in range(1,8):
             y=9+round(1.3*math.sin(TAU*3*t+k*0.9))+(k//3)
             put(r,[(-k,y)],SH if k%2 else SH2)
@@ -305,8 +334,9 @@ def free_layer(i):
         x+=w*px
     return img
 def shawshank():
-    fr=_shawshank_base()
-    return [(comp(im,free_layer(i)),d) for i,(im,d) in enumerate(fr)]
+    em=_shawshank_emerge()
+    fr=_shawshank_base(pipe=pipe_layer())
+    return em+[(comp(im,free_layer(i)),d) for i,(im,d) in enumerate(fr)]
 
 def matrix():
     fr=[]; CO='#1C1C22'; CO2='#34343F'
