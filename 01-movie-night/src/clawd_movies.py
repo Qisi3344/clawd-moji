@@ -10,13 +10,13 @@ The "Free" text in shawshank uses the Zpix pixel font
 (https://github.com/SolidZORO/zpix-pixel-font). Download zpix.ttf and put it next
 to this script, or set ZPIX_FONT=/path/to/zpix.ttf.
 
-Clawd rules kept in every frame: 15x16 body grid, colour #DE886D,
+Clawd rules kept in every frame: 15x16 body grid, colour #D77757 (official clawd_body),
 1x2 black square eyes, no mouth.
 """
 import math, os, sys
 from PIL import Image, ImageDraw, ImageFont
 S=12; W,H=23,24; OX,OY=4,7
-BODY='#DE886D'; BODYD='#C26E55'; K='#1a1a1a'; BL='#F59A9A'; WH='#FFFFFF'
+BODY='#D77757'; BODYD='#B85E44'; K='#1a1a1a'; BL='#F59A9A'; WH='#FFFFFF'
 def base(dy=0, arms=True, eyes=True, legs=True):
     p={}
     for x in range(2,13):
