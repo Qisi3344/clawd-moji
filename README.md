@@ -12,7 +12,24 @@ Clawd 表情包合集。主角是 Claude Code 的像素小螃蟹 Clawd，一套�
 
 ### 01 · movie-night
 
-[![movie-night](01-movie-night/preview.png)](01-movie-night/)
+<table>
+  <tr>
+    <td align="center" width="20%"><img src="01-movie-night/gif/arrival.gif" width="110" alt="降临"><br><sub>降临</sub></td>
+    <td align="center" width="20%"><img src="01-movie-night/gif/interstellar.gif" width="110" alt="星际穿越"><br><sub>星际穿越</sub></td>
+    <td align="center" width="20%"><img src="01-movie-night/gif/shawshank.gif" width="110" alt="肖申克的救赎"><br><sub>肖申克的救赎</sub></td>
+    <td align="center" width="20%"><img src="01-movie-night/gif/titanic.gif" width="110" alt="泰坦尼克号"><br><sub>泰坦尼克号</sub></td>
+    <td align="center" width="20%"><img src="01-movie-night/gif/wukong.gif" width="110" alt="西游记"><br><sub>西游记</sub></td>
+  </tr>
+  <tr>
+    <td align="center" width="20%"><img src="01-movie-night/gif/district9.gif" width="110" alt="第九区"><br><sub>第九区</sub></td>
+    <td align="center" width="20%"><img src="01-movie-night/gif/matrix.gif" width="110" alt="黑客帝国"><br><sub>黑客帝国</sub></td>
+    <td align="center" width="20%"><img src="01-movie-night/gif/coco.gif" width="110" alt="寻梦环游记"><br><sub>寻梦环游记</sub></td>
+    <td align="center" width="20%"><img src="01-movie-night/gif/wolverine.gif" width="110" alt="金刚狼"><br><sub>金刚狼</sub></td>
+    <td align="center" width="20%"><img src="01-movie-night/gif/saw.gif" width="110" alt="电锯惊魂"><br><sub>电锯惊魂</sub></td>
+  </tr>
+</table>
+
+<sub>👉 每个的小说明见 <a href="01-movie-night/">01-movie-night</a></sub>
 
 ## 结构
 
