@@ -466,9 +466,15 @@ def saw():
         tv={}
         put(tv,[(x,y) for x in range(X0-1,X1+2) for y in (Y0-1,Y1+1)]+[(x,y) for y in range(Y0-1,Y1+2) for x in (X0-1,X1+1)],FR)
         put(tv,[(x,Y1+1) for x in range(X0-1,X1+2)],FR2)
-        put(tv,[(4,Y0-2),(3,Y0-3),(10,Y0-2),(11,Y0-3)],FR)
-        put(tv,[(1,Y1+2),(13,Y1+2),(0,Y1+3),(14,Y1+3)],FR2)
+        # ceiling mount instead of TV antennas/feet
+        put(tv,[(x,y) for x in (7,8) for y in (Y0-2,Y0-3)],FR2)
+        put(tv,[(x,Y0-4) for x in range(5,11)],FR)
         on=8<=i<54
+        if on:  # CCTV viewfinder corners + blinking REC dot
+            G='#8FA58F'
+            for cx,cy,sx,sy in ((X0,Y0,1,1),(X1,Y0,-1,1),(X0,Y1,1,-1),(X1,Y1,-1,-1)):
+                put(tv,[(cx,cy),(cx+sx,cy),(cx,cy+sy)],G)
+            if (i//6)%2==0: put(tv,[(X0+1,Y1-1)],'#E0323A')
         scr={}
         for y in range(Y0,Y1+1):
             for x in range(X0,X1+1):
@@ -518,7 +524,12 @@ def saw():
                 m=Image.new('L',(int(total)+2,16),0); ImageDraw.Draw(m).text((0,0),shown,font=FT,fill=255)
                 m=m.point(lambda v:255 if v>100 else 0).resize(((int(total)+2)*px,16*px),Image.NEAREST)
                 txt.paste(Image.new('RGBA',m.size,'#E0323A'),(round(x0),round(y0)),m)
-        fr.append((comp(shadow(0,y=Y1+4),scr,ch,txt,tv),60))
+        if on:
+            if txt is None: txt=Image.new('RGBA',canvas().size,(0,0,0,0))
+            m=Image.new('L',(24,16),0); ImageDraw.Draw(m).text((0,0),'REC',font=FT,fill=255)
+            m=m.point(lambda v:255 if v>100 else 0).resize((48,32),Image.NEAREST)
+            txt.paste(Image.new('RGBA',m.size,'#C8D4C8'),((X0+2+OX)*S+4,(Y1-1+OY)*S-6),m)
+        fr.append((comp(scr,ch,txt,tv),60))
     fr[40]=(fr[40][0],400)
     return fr
 
