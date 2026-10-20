@@ -172,30 +172,32 @@ def titanic():
     N4=((1,0),(-1,0),(0,1),(0,-1))
     for i in range(48):
         t=i/48
-        # Rose: front, arms spread, standing still
-        b=eyes(base(arms=False),1,-1,blink=(i in (30,31)))
-        arm=[(x,9) for x in range(-2,2)]+[(-2,8)]
-        put(b,arm+[(14-x,y) for x,y in arm],BODY)
-        put(b,rect(2,10,12,10),SH); put(b,[(x,8) for x in range(-1,2)]+[(x,8) for x in range(13,16)]+[(1,9),(13,9),(2,11),(12,11),(2,12),(12,12)],SH); put(b,[(5,10),(9,10),(0,8),(14,8)],SH2)
-        for k in range(1,8):
-            y=9+round(1.3*math.sin(TAU*3*t+k*0.9))+(k//3)
-            put(b,[(-1-k,y)],SH if k%2 else SH2)
-            if k<6: put(b,[(-1-k,y+1)],SH)
-        # Jack: behind her, a bit taller, hands round her waist
-        j=shift(eyes(base(arms=False,legs=False),1,-2,blink=(i in (12,13))),-2,-2)
+        # Rose: front, arms spread, standing still on the bow
+        r=eyes(base(arms=False),1,-1,blink=(i in (30,31)))
+        arm=[(x,9) for x in range(-1,2)]+[(-1,8)]
+        put(r,arm+[(14-x,y) for x,y in arm],BODY)
+        put(r,rect(2,10,12,10),SH); put(r,[(x,8) for x in range(0,2)]+[(x,8) for x in range(13,15)]+[(1,9),(13,9),(2,11),(12,11),(2,12),(12,12)],SH); put(r,[(5,10),(9,10),(0,8),(14,8)],SH2)
+        for k in range(1,4):
+            y=9+round(1.0*math.sin(TAU*3*t+k*0.9))+(k//2)
+            put(r,[(-k,y)],SH if k%2 else SH2)
+            if k<3: put(r,[(-k,y+1)],SH)
+        r=shift(r,3,0)
+        # Jack: same size, one step behind her, arm round her waist
+        j=shift(eyes(base(arms=False),0,0,blink=(i in (12,13))),-7,-2)
         jj={}
         for (x,y),c in j.items():
-            if (x,y) in b: continue
-            if c==BODY and any((x+dx,y+dy) in b for dx,dy in N4): c=BODYD
+            if (x,y) in r: continue
+            if c==BODY and any((x+dx,y+dy) in r for dx,dy in N4): c=BODYD
             jj[(x,y)]=c
-        for x,y in [(0,11),(1,11),(13,11),(14,11)]: jj[(x,y)]=BODY
-        jj.update(b)
+        for x,y in [(16,11),(17,11)]: jj[(x,y)]=BODY
+        jj.update(r)
         ch=xform(jj)
-        deck={}; put(deck,rect(-4,15,14,15),'#C99A5B'); put(deck,[(15,15),(16,15),(17,15)],'#C99A5B'); put(deck,rect(-4,16,15,16),'#2B3A55')
-        put(deck,[(x,16) for x in range(-4,16) if (x+i)%5==0],'#3E5277')
+        deck={}; WD='#C99A5B'
+        put(deck,rect(-4,13,15,13),'#D9AE72'); put(deck,rect(-4,14,16,14),WD); put(deck,rect(-4,15,17,15),WD)
+        put(deck,rect(-4,16,16,16),'#2B3A55'); put(deck,[(x,16) for x in range(-4,17) if (x+i)%5==0],'#3E5277')
         wind={}
         sh=round(i*46/48)
-        for x,y,l in [(-3,0,3),(10,-4,2),(-4,13,2),(16,4,3),(4,-6,2)]:
+        for x,y,l in [(-3,0,3),(10,-4,2),(-4,-2,2),(16,4,3),(4,-6,2)]:
             xx=(x-sh+4)%23-4
             for jx in range(l): wind[(xx+jx,y)]='#BFD8F0'
         fr.append((comp(wind,deck,ch),60))
