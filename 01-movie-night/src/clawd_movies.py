@@ -173,7 +173,7 @@ def titanic():
         t=i/48
         # Rose: lifted overhead, arms spread, "I'm flying"
         r=eyes(base(arms=False),1,-1,blink=(i in (30,31)))
-        arm=[(0,9),(1,9),(0,8)]
+        arm=rect(0,7,1,8)  # official arms-up
         put(r,arm+[(14-x,y) for x,y in arm],BODY)
         put(r,rect(2,10,12,10),SH); put(r,[(1,8),(13,8)]+[(1,9),(13,9),(2,11),(12,11),(2,12),(12,12)],SH); put(r,[(5,10),(9,10)],SH2)
         for k in range(1,8):
@@ -183,7 +183,7 @@ def titanic():
         r=shift(r,0,RY)
         # Jack: standing on the deck, holding her up
         j=eyes(base(arms=False),0,-1,blink=(i in (12,13)))
-        fly=[(0,10),(1,10),(0,9)]
+        fly=rect(0,7,1,8)
         put(j,fly+[(14-x,y) for x,y in fly],BODY)
         sway=1.5*math.sin(TAU*t)
         rl=xform(r,0,0,rot=sway,piv=(7.5,5.5))
