@@ -15,7 +15,7 @@
 | 7 | 黑客帝国 The Matrix | <img src="gif/matrix.gif" width="120"> | 黑风衣，代码雨里下腰躲子弹 |
 | 8 | 寻梦环游记 Coco | <img src="gif/coco.gif" width="120"> | 万寿菊花瓣和彩旗下弹吉他 |
 | 9 | X战警 X-Men | <img src="gif/wolverine.gif" width="120"> | 金刚狼发型，欻欻欻弹出精钢爪 |
-| 10 | 电锯惊魂 Saw | <img src="gif/saw.gif" width="120"> | 雪花屏后出现在老电视里，凑近、歪头、装深沉，然后关机 |
+| 10 | 电锯惊魂 Saw | <img src="gif/saw.gif" width="120"> | 雪花屏后出现在老电视里，屏幕上一个字一个字打出 PLAY GAME，凑近、歪头、装深沉，然后关机 |
 
 ## 自己生成
 
