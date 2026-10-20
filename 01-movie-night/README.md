@@ -12,7 +12,7 @@
 | 4 | 泰坦尼克号 Titanic | <img src="gif/titanic.gif" width="120"> | Rose 踩在 Jack 头上，两只一起在船头张开双臂起飞，海风吹动披肩 |
 | 5 | 西游克 Journey to the West | <img src="gif/wukong.gif" width="120"> | 戴紧箍、扛金箍棒，踩着筋斗云飞 |
 | 6 | 第九克 District 9 | <img src="gif/district9.gif" width="120"> | 母舰滴下的黑液让手变成虾钳，吓得狂甩 |
-| 7 | 黑客帝克 The Matrix | <img src="gif/matrix.gif" width="120"> | 黑风衣，代码雨里下腰躲子弹 |
+| 7 | 黑克帝国 The Matrix | <img src="gif/matrix.gif" width="120"> | 黑风衣，代码雨里下腰躲子弹 |
 | 8 | 寻梦环游克 Coco | <img src="gif/coco.gif" width="120"> | 万寿菊花瓣和彩旗下弹吉他 |
 | 9 | 金刚克 Wolverine | <img src="gif/wolverine.gif" width="120"> | 金刚狼发型，欻欻欻弹出精钢爪 |
 | 10 | 电锯惊克 Saw | <img src="gif/saw.gif" width="120"> | 雪花屏后出现在监控屏幕里（REC 闪烁），屏幕上一个字一个字打出 PLAY GAME，凑近、歪头、装深沉，然后信号断开 |
