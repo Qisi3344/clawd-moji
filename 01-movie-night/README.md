@@ -9,7 +9,7 @@
 | 1 | 降临 Arrival | <img src="gif/arrival.gif" width="120"> | 盯着七肢桶的墨圈一笔画完，吓得一蹦 |
 | 2 | 星际穿越 Interstellar | <img src="gif/interstellar.gif" width="120"> | 穿着宇航服在卡冈图雅旁边失重翻滚 |
 | 3 | 肖申克的救赎 The Shawshank Redemption | <img src="gif/shawshank.gif" width="120"> | 雨中张开双臂，Free |
-| 4 | 泰坦尼克号 Titanic | <img src="gif/titanic.gif" width="120"> | 披着 Rose 的披肩站在船头，随风摇摆 |
+| 4 | 泰坦尼克号 Titanic | <img src="gif/titanic.gif" width="120"> | Rose 披着披肩在船头张开双臂，Jack 在身后搂着，海风吹动披肩 |
 | 5 | 西游记 Journey to the West | <img src="gif/wukong.gif" width="120"> | 戴紧箍、扛金箍棒，踩着筋斗云飞 |
 | 6 | 第九区 District 9 | <img src="gif/district9.gif" width="120"> | 母舰滴下的黑液让手变成虾钳，吓得狂甩 |
 | 7 | 黑客帝国 The Matrix | <img src="gif/matrix.gif" width="120"> | 黑风衣，代码雨里下腰躲子弹 |
