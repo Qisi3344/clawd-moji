@@ -169,25 +169,35 @@ def _shawshank_base():
 # ---------- 泰坦尼克 ----------
 def titanic():
     fr=[]; SH='#6B2840'; SH2='#8E3A57'
+    N4=((1,0),(-1,0),(0,1),(0,-1))
     for i in range(48):
-        t=i/48; flap=1 if math.sin(TAU*4*t)>0.3 else 0
+        t=i/48
+        # Rose: front, arms spread, standing still
         b=eyes(base(arms=False),1,-1,blink=(i in (30,31)))
-        arm=[(x,9) for x in range(-2,2)]+[(-2,8-flap)]
-        if flap: arm=[(x,9) for x in range(0,2)]+[(-1,8),(-2,8)]
+        arm=[(x,9) for x in range(-2,2)]+[(-2,8)]
         put(b,arm+[(14-x,y) for x,y in arm],BODY)
         put(b,rect(2,10,12,10),SH); put(b,[(x,8) for x in range(-1,2)]+[(x,8) for x in range(13,16)]+[(1,9),(13,9),(2,11),(12,11),(2,12),(12,12)],SH); put(b,[(5,10),(9,10),(0,8),(14,8)],SH2)
         for k in range(1,8):
             y=9+round(1.3*math.sin(TAU*3*t+k*0.9))+(k//3)
             put(b,[(-1-k,y)],SH if k%2 else SH2)
             if k<6: put(b,[(-1-k,y+1)],SH)
-        ch=xform(b,0.3*math.sin(TAU*t),-0.4-0.5*math.sin(TAU*2*t),rot=4*math.sin(TAU*t))
+        # Jack: behind her, a bit taller, hands round her waist
+        j=shift(eyes(base(arms=False,legs=False),1,0,blink=(i in (12,13))),-2,-4)
+        jj={}
+        for (x,y),c in j.items():
+            if (x,y) in b: continue
+            if c==BODY and any((x+dx,y+dy) in b for dx,dy in N4): c=BODYD
+            jj[(x,y)]=c
+        for x,y in [(0,11),(1,11),(13,11),(14,11)]: jj[(x,y)]=BODY
+        jj.update(b)
+        ch=xform(jj)
         deck={}; put(deck,rect(-4,15,14,15),'#C99A5B'); put(deck,[(15,15),(16,15),(17,15)],'#C99A5B'); put(deck,rect(-4,16,15,16),'#2B3A55')
         put(deck,[(x,16) for x in range(-4,16) if (x+i)%5==0],'#3E5277')
         wind={}
         sh=round(i*46/48)
-        for x,y,l in [(-3,3,3),(10,-2,2),(-4,12,2),(16,5,3),(4,-5,2)]:
+        for x,y,l in [(-3,0,3),(10,-4,2),(-4,13,2),(16,4,3),(4,-6,2)]:
             xx=(x-sh+4)%23-4
-            for j in range(l): wind[(xx+j,y)]='#BFD8F0'
+            for jx in range(l): wind[(xx+jx,y)]='#BFD8F0'
         fr.append((comp(wind,deck,ch),60))
     return fr
 # ---------- 西游记 ----------
