@@ -15,7 +15,7 @@ Clawd 表情包合集。主角是 Claude Code 的像素小螃蟹 Clawd，一套�
 <table>
   <tr>
     <td align="center" width="20%"><img src="01-movie-night/gif/arrival.gif" width="110" alt="降临克"><br><sub>降临克</sub></td>
-    <td align="center" width="20%"><img src="01-movie-night/gif/interstellar.gif" width="110" alt="星际穿克"><br><sub>星际穿克</sub></td>
+    <td align="center" width="20%"><img src="01-movie-night/gif/interstellar.gif" width="110" alt="星克穿越"><br><sub>星克穿越</sub></td>
     <td align="center" width="20%"><img src="01-movie-night/gif/shawshank.gif" width="110" alt="肖申克的救赎"><br><sub>肖申克的救赎</sub></td>
     <td align="center" width="20%"><img src="01-movie-night/gif/titanic.gif" width="110" alt="泰坦尼克号"><br><sub>泰坦尼克号</sub></td>
     <td align="center" width="20%"><img src="01-movie-night/gif/wukong.gif" width="110" alt="西游克"><br><sub>西游克</sub></td>
