@@ -815,15 +815,20 @@ def walkingdead():
         if not run:
             put(p,rect(0,9,1,10)+rect(13,9,14,10),BODY); put(p,[(15,9),(16,9),(17,9)],GUN); put(p,[(15,10)],GUD)
         else:
-            ph=i%4; A=ph<2
-            L1=[(3,13),(2,14),(9,13),(8,14)]; L2=[(5,13),(6,14),(11,13),(12,14)]
-            put(p,L1 if A else L2,BODY)
-            for q in (L2 if A else L1): p.setdefault((q[0]+1,q[1]),'#EBB7A3')
+            A=(i//2)%2
+            # 螃蟹式横着小碎步：四只脚错开相位，向外撇、抬起、落下
+            for x,d,off in ((3,-1,0),(5,-1,2),(9,1,1),(11,1,3)):
+                ph=(i+off)%4
+                if ph==0: pts=[(x,13),(x,14)]
+                elif ph==1: pts=[(x,13),(x+d,14)]
+                elif ph==2: pts=[(x+d,13),(x+d,14)]
+                else: pts=[(x,13),(x-d,14)]
+                put(p,pts,BODY)
             arms(p,UP if A else DOWN, DOWN if A else UP)
         jump=-kf(i,[(14,0),(16,2.6),(19,0)]) if 14<=i<20 else 0
         sq=kf(i,[(13,1),(14,0.85),(16,1.15),(19,0.88),(21,1)])
-        cx=kf(i,[(22,0),(60,-26)]); bob=-0.6 if run and i%4 in (1,3) else 0
-        ch=xform(p,cx,jump+bob,rot=7 if run else 0,**squash(sq))
+        cx=kf(i,[(22,0),(60,-26)]); bob=-0.5 if run and i%2 else 0
+        ch=xform(p,cx,jump+bob,rot=(5+2.5*math.sin(i*1.6)) if run else 0,**squash(sq))
         fx={}
         if 15<=i<26: fx.update(bang(7,-4+round(jump)))
         if run and i%3: fx.update({(round(cx)+15,5):'#8FC7F0',(round(cx)+15,6):'#8FC7F0',(round(cx)+16,3):'#8FC7F0'})
@@ -1033,7 +1038,58 @@ def ironman():
     fr[-1]=(fr[-1][0],240)
     return fr
 
-MORE=['forrest','spider','harry','starwars','walkingdead','truman','jurassic','obsession','ironman']
+# 魔女宅克：骑扫把、头顶大红蝴蝶结，带着黑猫吉吉飞
+def kiki():
+    fr=[]; N=48
+    RD='#D9363E'; RDD='#A0222A'; ST='#8A5A34'; BR='#D6BC63'; BRD='#A8913F'; CAT='#1E1E24'
+    clouds=[(4,-3,4),(13,3,3),(20,-5,5),(27,6,4)]
+    for i in range(N):
+        t=TAU*i/N
+        p=face(base(),'n',1,0,blink=(i in (30,31)))
+        put(p,[(4,3),(5,3),(9,3),(10,3),(3,4),(4,4),(5,4),(6,4),(8,4),(9,4),(10,4),(11,4),(4,5),(5,5),(9,5),(10,5),(6,5),(8,5)],RD)
+        put(p,[(7,4),(7,5),(5,4),(9,4)],RDD); p[(4,3)]=RD
+        for x in range(-1,19): p[(x,13)]=ST
+        fl=(i//2)%2
+        for x in range(-5,0):
+            spread=min(3,(0-x+1)//2)
+            for y in range(13-spread,14+spread):
+                p[(x,y)]=BRD if (x+y+fl)%3==0 else BR
+        for y in range(10,17):   # 扫把尾巴散开的毛
+            if (y+fl)%2==0: p[(-6,y)]=BR
+            elif 11<=y<=15: p[(-6,y)]=BRD
+        put(p,[(0,12),(0,13),(0,14)],RDD)
+        cat={}
+        for q in [(16,7),(18,7),(16,8),(17,8),(18,8),(16,9),(17,9),(18,9),(15,10),(16,10),(17,10),(15,11),(16,11),(17,11),(15,12),(16,12),(17,12)]: cat[q]=CAT
+        if i not in (12,13): cat[(18,8)]='#F2D04B'
+        tl=round(1.0*math.sin(t*2))
+        cat.update({(15,13):CAT,(15,14):CAT,(15,15):CAT,(15+(1 if tl>0 else 0),16):CAT})   # 尾巴从杆子上垂下来，尾尖轻轻摆
+        kick=(i//4)%2
+        for k_,x in enumerate((3,5,9,11)):
+            p.pop((x,13),None); up=(kick+k_)%2
+            p[(x,14)]=BODY; p[(x,15)]=BODY
+        for x in range(-1,19): p[(x,13)]=ST
+        for x in (5,11): p[(x,13)]=BODY   # 近侧两只脚在扫把杆前面
+        p.update(cat)
+        p=shift(p,-0,-3)
+        dy=1.1*math.sin(t); rot=-4+2.5*math.sin(t+0.8)
+        rider=xform(p,1.6,dy+0.5,rot=rot,sx=0.84,sy=0.84,piv=(5.5,8))
+        bg={}
+        for k,(x0,y0,w) in enumerate(clouds):
+            span=28; x=round((x0-i*span/N)%span)-5
+            for xx in range(x,x+w):
+                bg[(xx,y0)]='#FFFFFF'; bg[(xx,y0+1)]='#FFFFFF'
+            for xx in range(x+1,x+w-1): bg[(xx,y0-1)]='#FFFFFF'
+            for xx in range(x-1,x+w+1): bg[(xx,y0+2)]='#CFE3F5'
+            bg[(x-1,y0+1)]='#CFE3F5'; bg[(x+w,y0+1)]='#CFE3F5'
+        wind={}
+        for k in range(3):
+            pp=((i/N)*3+k/3)%1; x=round(-2+ (1-pp)*6)-4; y=(2,8,11)[k]
+            if pp<0.7: 
+                for xx in range(x,x+3): wind[(xx,y)]='#BFD6EE'
+        fr.append((comp(bg,wind,rider),60))
+    return fr
+
+MORE=['forrest','spider','harry','starwars','walkingdead','truman','jurassic','obsession','ironman','kiki']
 if __name__=='__main__':
     cm.OUT=sys.argv[1] if len(sys.argv)>1 and os.path.isdir(sys.argv[1]) else os.path.join(os.path.dirname(os.path.abspath(__file__)),'..','movies','v6')
     names=[a for a in sys.argv[1:] if a in MORE] or MORE
