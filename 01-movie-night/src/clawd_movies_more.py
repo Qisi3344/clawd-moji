@@ -1089,6 +1089,13 @@ def kiki():
         fr.append((comp(bg,wind,rider),60))
     return fr
 
+# 蜘蛛克：第一帧原本是空的（还没垂下来），Windows/部分 app 用首帧当缩略图会显示成全黑。
+# 把循环起点挪到已经挂好的那一帧，动画循环本身不变。
+_spider_v2=spider
+def spider():
+    fr=_spider_v2(); s=20
+    return fr[s:]+fr[:s]
+
 MORE=['forrest','spider','harry','starwars','walkingdead','truman','jurassic','obsession','ironman','kiki']
 if __name__=='__main__':
     cm.OUT=sys.argv[1] if len(sys.argv)>1 and os.path.isdir(sys.argv[1]) else os.path.join(os.path.dirname(os.path.abspath(__file__)),'..','movies','v6')
