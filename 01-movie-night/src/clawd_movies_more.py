@@ -664,6 +664,24 @@ def forrest():
         fr.append((comp(mv,road,lines,feather,body,fx),70 if i<BRK else 55))
     return fr
 
+def ov_xform(img,ax,ay,sx=1,sy=1):
+    if sx==1 and sy==1: return img
+    co=(1/sx,0,ax-ax/sx,0,1/sy,ay-ay/sy)
+    return img.transform(img.size,Image.AFFINE,co,resample=Image.BILINEAR)
+def harry_specs(cs,ax,ay,sx,sy,edx):
+    """圆框眼镜 + 额头小闪电（细线叠加，跟着眼睛和挤压走）"""
+    img=Image.new('RGBA',(W*S,H*S),(0,0,0,0)); d=ImageDraw.Draw(img)
+    P=lambda x,y:(ax+(x-7.5)*cs,ay+(y-15)*cs)
+    FR='#2B2B33'; r=1.65
+    for ex in (4,10):
+        cx,cy=P(ex+0.5+edx,9.0)
+        d.ellipse([cx-r*cs,cy-r*cs,cx+r*cs,cy+r*cs],outline=FR,width=3)
+    d.line([P(6.0+edx,8.45),P(9.0+edx,8.45)],fill=FR,width=3)
+    d.line([P(2.6,8.6),P(3.05+edx,8.7)],fill=FR,width=3)
+    d.line([P(12.4,8.6),P(11.95+edx,8.7)],fill=FR,width=3)
+    d.line([P(8.05,6.15),P(7.25,6.85),P(7.95,6.85),P(7.15,7.55)],fill='#9A2E1E',width=3,joint='curve')
+    return ov_xform(img,ax,ay,sx,sy)
+
 def harry():
     fr=[]; HT='#3E2E6B'; HTL='#5A4592'; HTD='#2A1F4A'; WD='#7A4A2A'; GO='#F2C94C'
     PK='#FF6FA5'; PK2='#FFB3D1'
@@ -673,7 +691,8 @@ def harry():
     for i in range(60):
         wave=10<=i<26
         mode='hap' if i>=28 else 'n'
-        p=face(base(arms=False),mode,1 if i<26 else 0,-1 if wave else 0,blink=(i in (5,6)))
+        edx=1 if i<26 else 0
+        p=face(base(arms=False),mode,edx,0,blink=(i in (5,6)))
         put(p,rect(0,9,1,10),BODY)
         put(p,rect(-1,5,15,5),HT); put(p,[(-1,5),(15,5)],HTD)
         rows={4:(2,12),3:(3,11),2:(4,10),1:(4,9),0:(5,9),-1:(6,9),-2:(7,10),-3:(9,11),-4:(11,12)}
@@ -694,6 +713,7 @@ def harry():
         sq=kf(i,[(26,1),(28,0.88),(31,1.08),(34,0.9),(36,1)])
         sv=squash(sq)
         ch=render(p,CS,AX,AY+hop*CS,sx=sv['sx'],sy=sv['sy'])
+        ch.alpha_composite(harry_specs(CS,AX,AY+hop*CS,sv['sx'],sv['sy'],edx))
         sparks=canvas()
         if wave:
             dd=ImageDraw.Draw(sparks)
@@ -907,7 +927,113 @@ def starwars():
         fr.append((img,60))
     return fr
 
-MORE=['forrest','spider','harry','starwars','walkingdead','truman','jurassic','obsession']
+# ================= v5 (2026-10-22) =================
+# 侏罗克公园：底部跑过一群小美颌龙
+_jurassic_v4=jurassic
+COMPY=[(5,0),(6,0),(4,1),(5,1),(7,1),(0,2),(1,2),(2,2),(3,2),(4,2),(5,3)]
+def compy(d,x,y,step,cs=9):
+    G='#A7B84A'; GD='#6F7D2C'; BE='#E3E6A6'
+    pts={q:G for q in COMPY}; pts[(6,1)]=G; pts[(6,0)]=K
+    for q in ((2,3),(3,3),(4,3)): pts[q]=BE
+    pts[(1,2)]=GD; pts[(0,1 if step else 2)]=GD
+    for q in ([(2,4),(4,4)] if step else [(1,4),(3,4)]): pts[q]=GD
+    for (cx,cy),c in pts.items():
+        X=x+cx*cs; Y=y+cy*cs; d.rectangle([X,Y,X+cs-1,Y+cs-1],fill=c)
+def jurassic():
+    fr=[]; N=48; span=W*S+72
+    herd=[(0,0),(85,1),(170,0),(250,1)]
+    for i,(im,dur) in enumerate(_jurassic_v4()):
+        lay=canvas(); d=ImageDraw.Draw(lay)
+        for k,(off,ph) in enumerate(herd):
+            x=round(i/N*span+off)%span-72
+            step=((i+ph*2+k)//2)%2
+            y=H*S-46-(4 if step else 0)
+            compy(d,x,y,step)
+        im=im.copy(); im.alpha_composite(lay); fr.append((im,dur))
+    return fr
+
+# 钢铁克：小克在山洞里焊初代机甲 Mark I
+def mark1(lit=0.0):
+    G1='#80858C'; G2='#5B6068'; G3='#B3B8BE'; DK='#3B3F45'
+    a={}
+    def R(x0,y0,x1,y1,c):
+        for x in range(x0,x1+1):
+            for y in range(y0,y1+1): a[(x,y)]=c
+    R(12,-4,14,-4,G1); R(11,-3,15,0,G1); R(11,-3,11,0,G2); R(15,-3,15,0,G2); R(12,-4,12,-4,G3)
+    R(12,1,14,1,DK)
+    R(9,2,17,8,G1); R(8,2,10,4,G2); R(16,2,18,4,G2); R(8,2,10,2,G3); R(16,2,18,2,G3)
+    R(9,7,17,8,G2); R(11,9,15,9,DK); R(10,10,16,10,G2)
+    R(8,5,9,10,G1); R(17,5,18,10,G1); R(8,5,8,10,G2); R(18,5,18,10,G2)
+    R(8,11,9,12,DK); R(17,11,18,12,DK)
+    R(10,11,12,14,G1); R(14,11,16,14,G1); R(10,11,10,14,G2); R(16,11,16,14,G2); R(10,12,12,12,G2); R(14,12,16,12,G2)
+    R(9,15,12,15,DK); R(14,15,17,15,DK)
+    for q in [(10,6),(16,6),(9,3),(17,3),(11,13),(15,13),(13,7),(12,2),(14,2)]: a[q]=G3
+    EY=mix('#2A2D33','#BFF3FF',lit) if lit else '#2A2D33'
+    a[(12,-2)]=EY; a[(14,-2)]=EY
+    rc=mix('#4A5058','#6FD8FF',lit) if lit else '#4A5058'; cc=mix('#5E646C','#FFFFFF',lit) if lit else '#5E646C'
+    for q in [(12,3),(13,3),(14,3),(12,4),(14,4),(12,5),(13,5),(14,5)]: a[q]=rc
+    a[(13,4)]=cc
+    return a
+def mix(c1,c2,t):
+    t=max(0,min(1,t)); a=[int(c1[k:k+2],16) for k in (1,3,5)]; b=[int(c2[k:k+2],16) for k in (1,3,5)]
+    return '#%02X%02X%02X'%tuple(round(a[j]+(b[j]-a[j])*t) for j in range(3))
+def ironman():
+    fr=[]; N=64; CS=9; AX=round((2.2+OX)*S); AY=(15+OY)*S
+    import random
+    for i in range(N):
+        weld=i<36
+        lit=kf(i,[(36,0),(40,1),(58,1),(63,0.15)]) if i>=36 else 0
+        mode='xx' if weld else ('hap' if i>=44 else 'n')
+        p=face(base(arms=False),mode,1 if 36<=i<44 else 0,-1 if 36<=i<44 else 0,blink=False)
+        put(p,rect(0,9,1,10),BODY)
+        if weld:
+            hy=8+(1 if (i//4)%2 else 0); hand(p,15,hy)
+        else: put(p,mirror(rect(0,9,1,10)),BODY)
+        hop=-kf(i,[(44,0),(47,1.6),(50,0),(54,1.6),(57,0)]) if 44<=i<58 else 0
+        sq=kf(i,[(43,1),(44,0.86),(47,1.08),(50,0.9),(52,1)]) if 42<=i<53 else 1
+        sv=squash(sq)
+        ch=render(p,CS,AX,AY+hop*CS,sx=sv['sx'],sy=sv['sy'])
+        jolt=(0,-0.4)[i in (40,41)] if True else 0
+        arm=xform(mark1(lit),0,jolt,rot=(0.8*math.sin(TAU*(i-44)/14) if 44<=i<58 else 0),piv=(13,15))
+        fx=canvas(); d=ImageDraw.Draw(fx)
+        if weld:
+            hx=AX+(15+1-7.5)*CS; hy_=AY+(hy+0.5-15)*CS
+            d.line([hx,hy_,hx+10,hy_-3],fill='#3B3F45',width=6)
+            d.line([hx+10,hy_-3,hx+16,hy_-5],fill='#C9A24A',width=4)
+            tx,ty=hx+17,hy_-5
+            fl=(i%2)
+            d.polygon([(tx,ty-4),(tx+11+fl*4,ty-1),(tx,ty+3)],fill='#7FD6FF')
+            d.polygon([(tx,ty-1),(tx+5+fl*2,ty),(tx,ty+1)],fill='#FFFFFF')
+            gx,gy=tx+12,ty
+            gr=10+3*fl
+            d.ellipse([gx-gr,gy-gr,gx+gr,gy+gr],fill=(255,240,200,110))
+            d.rectangle([gx-3,gy-3,gx+3,gy+3],fill='#FFFFFF')
+            rnd=random.Random(7)
+            for k in range(48):
+                born=rnd.randint(-10,35); age=i-born
+                if age<0 or age>9: continue
+                vx=rnd.uniform(-4.5,2.5); vy=rnd.uniform(-6,-0.5)
+                qx=gx+vx*age*2.6; qy=gy+vy*age*2.6+0.6*age*age*2
+                c=['#FFFFFF','#FFE08A','#FFB347','#FF8A3D'][min(3,age//3)]
+                sz=5 if age<4 else (4 if age<7 else 3)
+                d.rectangle([qx,qy,qx+sz,qy+sz],fill=c)
+        if lit>0.05:
+            RX=(13+OX+0.5)*S; RY=(4+OY+0.5+jolt)*S
+            for k in range(2):
+                t=((i-38)/10+k*0.5)%1
+                rr=10+t*26; al=int(170*(1-t)*lit)
+                d.ellipse([RX-rr,RY-rr,RX+rr,RY+rr],outline=(111,216,255,al),width=3)
+            d.ellipse([RX-16,RY-16,RX+16,RY+16],fill=(111,216,255,int(70*lit)))
+            for ex in (12,14):
+                EX=(ex+OX+0.5)*S; EY=(-2+OY+0.5+jolt)*S
+                d.ellipse([EX-9,EY-9,EX+9,EY+9],fill=(191,243,255,int(60*lit)))
+        floor={(x,15):'#C9BFB3' for x in range(-4,19)}
+        sh=shadow(-hop) if False else {}
+        fr.append((comp(floor,arm,fx,ch),60))
+    fr[-1]=(fr[-1][0],240)
+    return fr
+
+MORE=['forrest','spider','harry','starwars','walkingdead','truman','jurassic','obsession','ironman']
 if __name__=='__main__':
     cm.OUT=sys.argv[1] if len(sys.argv)>1 and os.path.isdir(sys.argv[1]) else os.path.join(os.path.dirname(os.path.abspath(__file__)),'..','movies','v6')
     names=[a for a in sys.argv[1:] if a in MORE] or MORE
