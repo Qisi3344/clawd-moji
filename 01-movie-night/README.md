@@ -1,6 +1,6 @@
 # 01 · movie-night
 
-影视主题 · 19 个动态表情，Clawd 主演。眼睛始终是两个小黑方块，不画嘴，戏全靠动作和道具。
+影视主题 · 20 个动态表情，Clawd 主演。眼睛始终是两个小黑方块，不画嘴，戏全靠动作和道具。
 
 ![preview](preview.png)
 
@@ -20,11 +20,12 @@
 | 12 | 蜘蛛克 Spider-Man | <img src="gif/spider.gif" width="120"> | 红蓝战衣，倒挂在细细的蛛丝上挥手 |
 | 13 | 哈利波克 Harry Potter | <img src="gif/harry.gif" width="120"> | 大巫师帽、圆眼镜、小闪电，挥魔杖冒出一串小爱心 |
 | 14 | 星克大战 Star Wars | <img src="gif/starwars.gif" width="120"> | 死星下，蓝色绝地和红色西斯两只小克光剑对决 |
-| 15 | 行克走克 The Walking Dead | <img src="gif/walkingdead.gif" width="120"> | 警长帽、左轮，> < 眼被丧尸一路追着跑 |
+| 15 | 行克走克 The Walking Dead | <img src="gif/walkingdead.gif" width="120"> | 警长帽、左轮，> < 眼螃蟹式小碎步被丧尸一路追着跑 |
 | 16 | 克门的世界 The Truman Show | <img src="gif/truman.gif" width="120"> | 推开天幕墙上的门：早安、午安、晚安 |
 | 17 | 侏罗克公园 Jurassic Park | <img src="gif/jurassic.gif" width="120"> | 骑着霸王龙 ^ ^ 欢呼，脚下跑过一群美颌龙 |
 | 18 | 痴克 Obsession | <img src="gif/obsession.gif" width="120"> | 折断许愿柳枝，token 金币哗哗往下掉 |
 | 19 | 钢铁克 Iron Man | <img src="gif/ironman.gif" width="120"> | > < 眼焊初代机甲，方舟反应堆亮起来，开心蹦两下 |
+| 20 | 魔女宅克 Kiki's Delivery Service | <img src="gif/kiki.gif" width="120"> | 顶着大红蝴蝶结骑扫把飞，黑猫吉吉坐在扫把头，尾巴垂下来轻轻晃 |
 
 ## 自己生成
 
@@ -33,7 +34,7 @@ cd src
 pip install pillow
 python clawd_movies.py          # 生成前 10 个到 ../gif/
 python clawd_movies.py matrix   # 只生成一个
-python clawd_movies_more.py ../gif   # 生成后 9 个（第 11–19）
+python clawd_movies_more.py ../gif   # 生成后 10 个（第 11–20）
 python clawd_movies_more.py ../gif ironman   # 只生成一个
 ```
 
