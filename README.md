@@ -4,6 +4,12 @@ Clawd 表情包合集。主角是 Claude Code 的像素小螃蟹 Clawd，一套�
 
 > Clawd 角色属于 Anthropic。本仓库是粉丝创作，非官方、非商用。各套 `src/` 里的代码用 MIT，表情图仅限个人非商用，详见 [LICENSE](LICENSE)。
 
+<p align="center"><img src="01-movie-night/preview.png" width="640" alt="movie-night 总览"></p>
+
+## 怎么用
+
+挑一个喜欢的点开，右键 / 长按保存 GIF 就能用。微信里用的话，拿各套 `wechat/` 文件夹里的小尺寸版，发到「文件传输助手」→ 长按 →「添加到表情」。
+
 ## 套装
 
 | 编号 | 主题 | 内容 | 状态 |
@@ -49,7 +55,8 @@ Clawd 表情包合集。主角是 Claude Code 的像素小螃蟹 Clawd，一套�
 
 每套一个文件夹，各放各的：
 
-- `gif/` —— 成品动图
+- `gif/` —— 成品动图（原尺寸）
+- `wechat/` —— 微信尺寸版（240×240，≤100KB）
 - `preview.png` —— 这套的总览图
 - `src/` —— 这套自己的生成代码
 - `README.md` —— 这套的清单和预览
