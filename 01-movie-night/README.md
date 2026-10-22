@@ -1,6 +1,6 @@
 # 01 · movie-night
 
-影视主题 · 20 个动态表情，Clawd 主演。眼睛始终是两个小黑方块，不画嘴，戏全靠动作和道具。
+影视主题 · 20 个动态表情，Clawd 主演。眼睛是两个小黑方块（偶尔眯成 ^ ^ 或 > <），不画嘴，戏全靠动作和道具。
 
 ![preview](preview.png)
 
@@ -26,6 +26,13 @@
 | 18 | 痴克 Obsession | <img src="gif/obsession.gif" width="120"> | 折断许愿柳枝，token 金币哗哗往下掉 |
 | 19 | 钢铁克 Iron Man | <img src="gif/ironman.gif" width="120"> | > < 眼焊初代机甲，方舟反应堆亮起来，开心蹦两下 |
 | 20 | 魔女宅克 Kiki's Delivery Service | <img src="gif/kiki.gif" width="120"> | 顶着大红蝴蝶结骑扫把飞，黑猫吉吉坐在扫把头，尾巴垂下来轻轻晃 |
+
+## 下载 / 在微信里用
+
+- `gif/`：原尺寸 276×288，透明背景
+- `wechat/`：240×240、每张 ≤100KB 的小尺寸版，透明背景
+
+想在微信里用：把 `wechat/` 里的 GIF 发到「文件传输助手」，点开长按 →「添加到表情」就好啦。
 
 ## 自己生成
 
