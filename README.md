@@ -8,7 +8,7 @@ Clawd 表情包合集。主角是 Claude Code 的像素小螃蟹 Clawd，一套�
 
 | 编号 | 主题 | 内容 | 状态 |
 |---|---|---|---|
-| 01 | [movie-night](01-movie-night/) | 影视主题 · 19 个 | 完成 |
+| 01 | [movie-night](01-movie-night/) | 影视主题 · 20 个 | 完成 |
 
 ### 01 · movie-night
 
@@ -39,6 +39,7 @@ Clawd 表情包合集。主角是 Claude Code 的像素小螃蟹 Clawd，一套�
     <td align="center" width="20%"><img src="01-movie-night/gif/jurassic.gif" width="110" alt="侏罗克公园"><br><sub>侏罗克公园</sub></td>
     <td align="center" width="20%"><img src="01-movie-night/gif/obsession.gif" width="110" alt="痴克"><br><sub>痴克</sub></td>
     <td align="center" width="20%"><img src="01-movie-night/gif/ironman.gif" width="110" alt="钢铁克"><br><sub>钢铁克</sub></td>
+    <td align="center" width="20%"><img src="01-movie-night/gif/kiki.gif" width="110" alt="魔女宅克"><br><sub>魔女宅克</sub></td>
   </tr>
 </table>
 
