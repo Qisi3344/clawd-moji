@@ -265,12 +265,13 @@ def jurassic():
         for q in back: rx[q]=GD
         for q in front: rx[q]=G
         bob=-0.5 if ph in (2,3,8,9) else 0
-        c=face(base(arms=False),'hap' if 16<=i<36 else 'n',0 if 16<=i<36 else 1,0,blink=(i in (40,41)))
-        put(c,UP if (i//3)%2 else MID,BODY); put(c,mirror(MID if (i//3)%2 else UP),BODY)
+        c=face(base(arms=False),'hap',1 if ph<6 else 0,0,blink=(i in (22,23,44,45)))
+        cheer=(i//3)%2
+        put(c,UP if cheer else MID,BODY); put(c,mirror(UP if cheer else MID),BODY)  # 双手欢呼
         c=shift(c,-4,-9)
-        cy=-0.8 if ph in (1,2,7,8) else 0
-        dino=xform(rx,0,bob,rot=1.5*math.sin(TAU*i/12),piv=(6,14))
-        rider=xform(c,0,bob+cy,rot=-3*math.sin(TAU*i/12),piv=(3,5))
+        cy=-1.0 if ph in (1,2,7,8) else 0
+        dino=xform(rx,0,bob,rot=2.2*math.sin(TAU*i/12),piv=(6,14))
+        rider=xform(c,0,bob+cy,rot=-4*math.sin(TAU*i/12),sx=1.12,sy=1.12,piv=(3,5))
         dust={}
         for k in range(3):
             pp=((i/12)+k/3)%1; x=round(-1-pp*4); y=14-round(pp*2)
@@ -665,13 +666,9 @@ def forrest():
 
 def harry():
     fr=[]; HT='#3E2E6B'; HTL='#5A4592'; HTD='#2A1F4A'; WD='#7A4A2A'; GO='#F2C94C'
-    PK=['#FF6FA5','#FF9EC4','#FF4F8B','#FFB3D1']
-    import random; rnd=random.Random(11)
-    HS=[]
-    while len(HS)<20:
-        x,y=rnd.randint(-4,16),rnd.randint(-7,13)
-        if all(abs(x-a)+abs(y-b)>4 for a,b,_ in HS): HS.append((x,y,rnd.random()))
-    HS.sort(key=lambda h:h[2])
+    PK='#FF6FA5'; PK2='#FFB3D1'
+    # 6 hearts, hand-placed: alternating sides, rising in staggered waves
+    HS=[(10,12,0),(2,13,0.5),(13,11,1.0),(-1,12,1.5),(7,13,2.0),(4,11,2.6)]
     CS=10; AX=(7.5+OX)*S; AY=(15+OY)*S
     for i in range(60):
         wave=10<=i<26
@@ -684,17 +681,15 @@ def harry():
         put(p,rect(2,4,12,4),HTD); put(p,[(4,3),(4,2),(5,1),(5,0),(6,-1)],HTL)
         put(p,[(7,1),(6,2),(8,2),(7,3)],GO); put(p,[(7,2)],'#FFF6C2'); put(p,[(10,-2)],GO)
         if wave:
-            hk=[(10,(15,9),60),(13,(16,5),120),(16,(15,7),40),(19,(17,4),130),(22,(15,6),70),(25,(14,7),80)]
-            for (a,pa,aa),(b,pb,ab) in zip(hk,hk[1:]):
-                if a<=i<=b:
-                    t=ease((i-a)/(b-a)); hx=round(pa[0]+(pb[0]-pa[0])*t); hy=round(pa[1]+(pb[1]-pa[1])*t); ang=aa+(ab-aa)*t
-            hand(p,hx,hy); wx,wy=hx+0.5,hy
+            # 魔杖稳稳举在右上，只轻轻点两下，不乱甩
+            hy=7-(1 if (i//3)%2 else 0); hx=15
+            hand(p,hx,hy); wx,wy=hx+0.5,hy; ang=72
         else:
             if i<10: put(p,rect(13,9,14,10),BODY); wx,wy,ang=15,9,60
             else: put(p,rect(13,7,14,8),BODY); wx,wy,ang=15,7,75
-        put(p,line_pts(wx,wy,ang,4),WD)
+        wand=line_pts(wx,wy,ang,4); put(p,wand,WD)
         tip=line_pts(wx,wy,ang,5)[-1]
-        if i>=8: p[tip]='#FFFFFF' if i%2 else '#FFF6C2'
+        if i>=8: p[tip]='#FFF6C2'   # 杖尖恒亮，不闪烁断节
         hop=-kf(i,[(28,0),(31,1.4),(34,0),(38,1.4),(41,0)]) if 28<=i<42 else 0
         sq=kf(i,[(26,1),(28,0.88),(31,1.08),(34,0.9),(36,1)])
         sv=squash(sq)
@@ -702,18 +697,24 @@ def harry():
         sparks=canvas()
         if wave:
             dd=ImageDraw.Draw(sparks)
-            for k in range(1,4):
-                X=AX+(tip[0]-7.5+0.5)*CS+(k*7 if i%2 else -k*7); Y=AY+(tip[1]-15+0.5)*CS+k*6
-                dd.rectangle([X-4,Y-4,X+3,Y+3],fill=GO if k%2 else '#FFF6C2')
+            TX=AX+(tip[0]-7.5+0.5)*CS; TY=AY+(tip[1]-15+0.5)*CS
+            ph=(i//2)%3
+            for k,(ox,oy) in enumerate([(0,-8),(7,-3),(-6,-2)][:ph+1]):
+                dd.rectangle([TX+ox-3,TY+oy-3,TX+ox+3,TY+oy+3],fill=GO)
+                dd.rectangle([TX+ox-1,TY+oy-1,TX+ox+1,TY+oy+1],fill='#FFF6C2')
         hearts={}
         if i>=26:
-            t=i-26
-            for k,(x,y,_) in enumerate(HS):
-                st=k*0.9
-                if t<st: continue
-                age=t-st; yy=y-int(age/7)
-                if age<1: hearts[(x+1,yy+1)]=PK[k%4]
-                else: hearts.update(heart(x,yy,PK[(k+int(age/3))%4],'#FFFFFF' if (age//2+k)%3==0 else PK[(k+1)%4]))
+            t=(i-26)*0.42
+            for k,(x,y,st) in enumerate(HS):
+                age=t-st
+                if age<0: continue
+                yy=y-int(age)
+                sway=round(1.2*math.sin(age*0.9+k))
+                if yy<-8: continue
+                if age<1.2:
+                    hearts[(x+1,yy+1)]='#FFFFFF'
+                else:
+                    hearts.update(heart(x+sway,yy,PK,PK2))
         fr.append((comp(hearts,shadow(-hop),ch,sparks),60))
     fr[-1]=(fr[-1][0],300)
     return fr
@@ -750,24 +751,23 @@ def obsession():
                 fx[(7+d[0]*r,2+d[1]*r)]='#FFF6C2'
         sq=kf(i,[(20,1),(22,0.85),(25,1.12),(28,1)])
         hop=-kf(i,[(36,0),(40,1.8),(44,0),(48,1.8),(52,0)]) if 36<=i<54 else 0
-        ch=xform(p,0,hop-1+(-0.4 if sq>1.05 else 0),**squash(sq))
-        box={}
-        for x in range(-2,17):
-            for y in (14,15,16): box[(x,y)]=KR
-            box[(x,14)]=KRL
-        for y in (14,15,16): box[(-2,y)]=KRD; box[(16,y)]=KRD
+        ch=xform(p,0,hop+(-0.4 if sq>1.05 else 0),**squash(sq))
+        box={}  # 盒子去掉
         coins={}; words=None
         if snapped:
             for k,(x,y0) in enumerate(rain):
                 yy=round(((i-22)*0.6+y0)%28-10)
                 xx=x+round(math.sin(TAU*(i/16+k*0.3)))
-                coins.update({(xx+a,yy+b):CO for a in range(3) for b in range(3)})
-                coins.update({(xx,yy):COD,(xx+1,yy):COD,(xx+2,yy):COD,(xx+1,yy+1):COD,(xx+1,yy+2):COD})
+                # 清晰硬币：深边 + 亮芯 + 中间一点高光
+                coins.update({(xx,yy):COD,(xx+1,yy):COD,(xx+2,yy):COD,
+                              (xx,yy+1):COD,(xx+2,yy+1):COD,
+                              (xx,yy+2):COD,(xx+1,yy+2):COD,(xx+2,yy+2):COD})
+                coins[(xx+1,yy+1)]=CO; coins[(xx+1,yy)]='#FFE9A8'
             words=canvas()
             for k,(x0,y0) in enumerate([(50,20),(190,110),(90,200)]):
                 yy=round(((i-22)*7+y0)%260)-40
                 words.alpha_composite(text_layer('token',2,x0+20*math.sin(i/6+k),yy,'#D77757','#FFFFFF'))
-        fr.append((comp(coins,ch,fx,box,boxtxt,words),60))
+        fr.append((comp(coins,ch,fx,words),60))
     fr[21]=(fr[21][0],300)
     return fr
 
@@ -824,10 +824,18 @@ def starwars():
     DS='#9AA0A8'; DSD='#6E737B'
     def crab(i,side,mode,dx):
         p=face(base(arms=False),mode,dx,0,blink=(i in ((40,41) if side else (46,47))))
-        hood='#5A3B26' if side==0 else '#1E1E22'; hood2='#7A5236' if side==0 else '#3A3A42'
-        put(p,[(1,y) for y in range(6,13)]+[(13,y) for y in range(6,13)],hood)
-        put(p,rect(2,5,12,5)+[(1,5),(13,5)],hood); put(p,[(x,4) for x in range(3,12)],hood2)
-        put(p,[(1,13),(13,13)],hood)
+        hood='#5A3B26' if side==0 else '#24242A'; hood2='#7A5236' if side==0 else '#3A3A42'; hoodd='#3A2516' if side==0 else '#121216'
+        # 兜帽：头顶包过去，两侧垂到肩，露脸
+        put(p,rect(3,3,11,3),hood); put(p,rect(2,4,12,4),hood)          # 帽顶
+        put(p,[(1,5),(13,5)],hood); put(p,[(2,5),(12,5)],hood2)
+        put(p,[(5,3),(9,3)],hood2); put(p,[(7,2),(6,3),(8,3)],hood2)    # 帽尖高光
+        # 垂肩的披风：两侧从耳朵往下拉成梯形
+        for y in range(6,14):
+            w=1 if y<9 else 2
+            for xx in range(w):
+                p[(1-xx,y)]=hood if xx==0 else hoodd
+                p[(13+xx,y)]=hood if xx==0 else hoodd
+        put(p,[(0,13),(14,13),(-1,14),(15,14)],hoodd)                   # 下摆
         put(p,rect(0,9,1,10),BODY)
         return p
     LK=[(0,80),(10,80),(14,110),(18,70),(22,100),(26,115),(28,70),(32,30),(35,40),(38,70),(43,100),(47,108),(51,72),(64,72)]
@@ -838,9 +846,13 @@ def starwars():
         bx,by=hx+ux*16,hy+uy*16
         if L>0:
             ex,ey=bx+ux*L,by+uy*L
-            d.line([(bx,by),(ex,ey)],fill=col+(110,),width=14)
-            d.line([(bx,by),(ex,ey)],fill=col+(255,),width=9)
-            d.line([(bx,by),(ex,ey)],fill=(255,255,255,255),width=4)
+            # 柔和外晕三层 + 亮芯 + 白热尖
+            d.line([(bx,by),(ex,ey)],fill=col+(60,),width=18)
+            d.line([(bx,by),(ex,ey)],fill=col+(130,),width=12)
+            d.line([(bx,by),(ex,ey)],fill=col+(255,),width=7)
+            d.line([(bx,by),(ex,ey)],fill=(255,255,255,235),width=3)
+            d.ellipse([ex-5,ey-5,ex+5,ey+5],fill=(255,255,255,210))   # 尖端白热
+            d.ellipse([bx-7,by-7,bx+7,by+7],fill=col+(90,))           # 根部辉光
         d.line([(hx-ux*2,hy-uy*2),(bx,by)],fill=(200,205,211,255),width=7)
         for t in (4,10):
             d.line([(hx+ux*t,hy+uy*t),(hx+ux*(t+2),hy+uy*(t+2))],fill=(42,42,42,255),width=7)
