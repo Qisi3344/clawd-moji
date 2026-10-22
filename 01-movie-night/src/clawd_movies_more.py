@@ -230,7 +230,7 @@ def truman():
         tl=None
         st,wd=words[seg]
         if not (seg==2 and i>=58):
-            tl=text_layer(wd,3,W*S//2,round(S*3.7+kf(i-st,[(0,-8),(3,4),(5,0)])),'#34343C')
+            tl=text_layer(wd,4,W*S//2,round(S*3.4+kf(i-st,[(0,-8),(3,4),(5,0)])),'#34343C')
         fr.append((comp(bg,ch,tl),70))
     fr[-1]=(fr[-1][0],400)
     return fr
