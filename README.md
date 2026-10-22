@@ -8,7 +8,7 @@ Clawd 表情包合集。主角是 Claude Code 的像素小螃蟹 Clawd，一套�
 
 | 编号 | 主题 | 内容 | 状态 |
 |---|---|---|---|
-| 01 | [movie-night](01-movie-night/) | 影视主题 · 10 个 | 完成 |
+| 01 | [movie-night](01-movie-night/) | 影视主题 · 19 个 | 完成 |
 
 ### 01 · movie-night
 
@@ -26,6 +26,19 @@ Clawd 表情包合集。主角是 Claude Code 的像素小螃蟹 Clawd，一套�
     <td align="center" width="20%"><img src="01-movie-night/gif/coco.gif" width="110" alt="寻克环游记"><br><sub>寻克环游记</sub></td>
     <td align="center" width="20%"><img src="01-movie-night/gif/wolverine.gif" width="110" alt="金刚克"><br><sub>金刚克</sub></td>
     <td align="center" width="20%"><img src="01-movie-night/gif/saw.gif" width="110" alt="电锯惊克"><br><sub>电锯惊克</sub></td>
+  </tr>
+  <tr>
+    <td align="center" width="20%"><img src="01-movie-night/gif/forrest.gif" width="110" alt="阿克正传"><br><sub>阿克正传</sub></td>
+    <td align="center" width="20%"><img src="01-movie-night/gif/spider.gif" width="110" alt="蜘蛛克"><br><sub>蜘蛛克</sub></td>
+    <td align="center" width="20%"><img src="01-movie-night/gif/harry.gif" width="110" alt="哈利波克"><br><sub>哈利波克</sub></td>
+    <td align="center" width="20%"><img src="01-movie-night/gif/starwars.gif" width="110" alt="星克大战"><br><sub>星克大战</sub></td>
+    <td align="center" width="20%"><img src="01-movie-night/gif/walkingdead.gif" width="110" alt="行克走克"><br><sub>行克走克</sub></td>
+  </tr>
+  <tr>
+    <td align="center" width="20%"><img src="01-movie-night/gif/truman.gif" width="110" alt="克门的世界"><br><sub>克门的世界</sub></td>
+    <td align="center" width="20%"><img src="01-movie-night/gif/jurassic.gif" width="110" alt="侏罗克公园"><br><sub>侏罗克公园</sub></td>
+    <td align="center" width="20%"><img src="01-movie-night/gif/obsession.gif" width="110" alt="痴克"><br><sub>痴克</sub></td>
+    <td align="center" width="20%"><img src="01-movie-night/gif/ironman.gif" width="110" alt="钢铁克"><br><sub>钢铁克</sub></td>
   </tr>
 </table>
 
