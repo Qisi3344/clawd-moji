@@ -271,7 +271,7 @@ def jurassic():
         c=shift(c,-4,-9)
         cy=-1.0 if ph in (1,2,7,8) else 0
         dino=xform(rx,0,bob,rot=2.2*math.sin(TAU*i/12),piv=(6,14))
-        rider=xform(c,0,bob+cy,rot=-4*math.sin(TAU*i/12),sx=1.12,sy=1.12,piv=(3,5))
+        rider=xform(c,0,bob+cy,rot=-4*math.sin(TAU*i/12),sx=0.92,sy=0.92,piv=(3,5))
         dust={}
         for k in range(3):
             pp=((i/12)+k/3)%1; x=round(-1-pp*4); y=14-round(pp*2)
