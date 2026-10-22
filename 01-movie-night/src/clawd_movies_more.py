@@ -690,7 +690,7 @@ def harry():
     CS=10; AX=(7.5+OX)*S; AY=(15+OY)*S
     for i in range(60):
         wave=10<=i<26
-        mode='hap' if i>=28 else 'n'
+        mode='n'
         edx=1 if i<26 else 0
         p=face(base(arms=False),mode,edx,0,blink=(i in (5,6)))
         put(p,rect(0,9,1,10),BODY)
