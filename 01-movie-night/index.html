@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>01 · 电影夜 — 20 个动态表情</title>
+<style>
+body{font-family:-apple-system,"PingFang SC","Microsoft YaHei",sans-serif;margin:0;padding:16px;background:#fff8f0;color:#333}
+h1{font-size:20px;text-align:center;margin:8px 0}
+.sub{text-align:center;color:#888;font-size:13px;line-height:1.8;margin-bottom:16px}
+.bar{text-align:center;margin:0 0 20px}
+.bar button{font-size:16px;padding:12px 28px;border:0;border-radius:24px;background:#ff8fab;color:#fff}
+.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}
+.card{border:1px solid #f3d9c8;border-radius:14px;padding:10px;text-align:center;background:#fff}
+.card img{width:100%;border-radius:8px;image-rendering:pixelated}
+.name{font-weight:700;margin-top:8px}
+.en{font-size:12px;color:#999}
+.plot{font-size:12px;color:#666;line-height:1.6;min-height:38px}
+.card button{margin-top:6px;padding:8px 18px;border:0;border-radius:18px;background:#ffb3c6;color:#fff;font-size:14px}
+.tip{font-size:12px;color:#999;text-align:center;line-height:1.8;margin-top:20px}
+#msg{text-align:center;color:#ff8fab;font-size:14px;min-height:20px}
+</style>
+</head>
+<body>
+<h1>01 · 电影夜 — 20 个动态表情</h1>
+<div class="sub">影视主题 · Clawd 主演 · 眼睛始终是两个小黑方块，不画嘴，戏全靠动作和道具</div>
+<div class="bar"><button onclick="dlAll()">全部下载（打包成一个 zip）</button></div>
+<div id="msg"></div>
+<div class="grid">
+<div class="card"><img src="gif/arrival.gif" data-name="01-降临克.gif" alt="降临克" loading="lazy"><div class="name">1. 降临克</div><div class="en">Arrival</div><div class="plot">盯着七肢桶的墨圈一笔画完，吓得一蹦</div><button onclick="dlOne(this)">下载这张</button></div>
+<div class="card"><img src="gif/interstellar.gif" data-name="02-星克穿越.gif" alt="星克穿越" loading="lazy"><div class="name">2. 星克穿越</div><div class="en">Interstellar</div><div class="plot">穿着宇航服在卡冈图雅旁边失重翻滚</div><button onclick="dlOne(this)">下载这张</button></div>
+<div class="card"><img src="gif/shawshank.gif" data-name="03-肖申克的救赎.gif" alt="肖申克的救赎" loading="lazy"><div class="name">3. 肖申克的救赎</div><div class="en">The Shawshank Redemption</div><div class="plot">从下水管里一点点挤出来，蹦上管口，雨中张开双臂，Free</div><button onclick="dlOne(this)">下载这张</button></div>
+<div class="card"><img src="gif/titanic.gif" data-name="04-泰坦尼克号.gif" alt="泰坦尼克号" loading="lazy"><div class="name">4. 泰坦尼克号</div><div class="en">Titanic</div><div class="plot">Rose 踩在 Jack 头上，两只一起在船头张开双臂起飞，海风吹动披肩</div><button onclick="dlOne(this)">下载这张</button></div>
+<div class="card"><img src="gif/wukong.gif" data-name="05-西游克.gif" alt="西游克" loading="lazy"><div class="name">5. 西游克</div><div class="en">Journey to the West</div><div class="plot">戴紧箍、扛金箍棒，踩着筋斗云飞</div><button onclick="dlOne(this)">下载这张</button></div>
+<div class="card"><img src="gif/district9.gif" data-name="06-第九克.gif" alt="第九克" loading="lazy"><div class="name">6. 第九克</div><div class="en">District 9</div><div class="plot">母舰滴下的黑液让手变成虾钳，吓得狂甩</div><button onclick="dlOne(this)">下载这张</button></div>
+<div class="card"><img src="gif/matrix.gif" data-name="07-黑克帝国.gif" alt="黑克帝国" loading="lazy"><div class="name">7. 黑克帝国</div><div class="en">The Matrix</div><div class="plot">黑风衣，代码雨里下腰躲子弹</div><button onclick="dlOne(this)">下载这张</button></div>
+<div class="card"><img src="gif/coco.gif" data-name="08-寻克环游记.gif" alt="寻克环游记" loading="lazy"><div class="name">8. 寻克环游记</div><div class="en">Coco</div><div class="plot">万寿菊花瓣和彩旗下弹吉他</div><button onclick="dlOne(this)">下载这张</button></div>
+<div class="card"><img src="gif/wolverine.gif" data-name="09-金刚克.gif" alt="金刚克" loading="lazy"><div class="name">9. 金刚克</div><div class="en">Wolverine</div><div class="plot">金刚狼发型，欻欻欻弹出精钢爪</div><button onclick="dlOne(this)">下载这张</button></div>
+<div class="card"><img src="gif/saw.gif" data-name="10-电锯惊克.gif" alt="电锯惊克" loading="lazy"><div class="name">10. 电锯惊克</div><div class="en">Saw</div><div class="plot">雪花屏后出现在监控屏幕里（REC 闪烁），屏幕上打出 PLAY GAME，凑近、歪头、装深沉，然后信号断开</div><button onclick="dlOne(this)">下载这张</button></div>
+<div class="card"><img src="gif/forrest.gif" data-name="11-阿克正传.gif" alt="阿克正传" loading="lazy"><div class="name">11. 阿克正传</div><div class="en">Forrest Gump</div><div class="plot">腿上的铁支架崩飞，从慢跑到越跑越快</div><button onclick="dlOne(this)">下载这张</button></div>
+<div class="card"><img src="gif/spider.gif" data-name="12-蜘蛛克.gif" alt="蜘蛛克" loading="lazy"><div class="name">12. 蜘蛛克</div><div class="en">Spider-Man</div><div class="plot">红蓝战衣，倒挂在细细的蛛丝上挥手</div><button onclick="dlOne(this)">下载这张</button></div>
+<div class="card"><img src="gif/harry.gif" data-name="13-哈利波克.gif" alt="哈利波克" loading="lazy"><div class="name">13. 哈利波克</div><div class="en">Harry Potter</div><div class="plot">大巫师帽、圆眼镜、小闪电，挥魔杖冒出一串小爱心</div><button onclick="dlOne(this)">下载这张</button></div>
+<div class="card"><img src="gif/starwars.gif" data-name="14-星克大战.gif" alt="星克大战" loading="lazy"><div class="name">14. 星克大战</div><div class="en">Star Wars</div><div class="plot">死星下，蓝色绝地和红色西斯两只小克光剑对决</div><button onclick="dlOne(this)">下载这张</button></div>
+<div class="card"><img src="gif/walkingdead.gif" data-name="15-行克走克.gif" alt="行克走克" loading="lazy"><div class="name">15. 行克走克</div><div class="en">The Walking Dead</div><div class="plot">警长帽、左轮，螃蟹式小碎步被丧尸一路追着跑</div><button onclick="dlOne(this)">下载这张</button></div>
+<div class="card"><img src="gif/truman.gif" data-name="16-克门的世界.gif" alt="克门的世界" loading="lazy"><div class="name">16. 克门的世界</div><div class="en">The Truman Show</div><div class="plot">推开天幕墙上的门：早安、午安、晚安</div><button onclick="dlOne(this)">下载这张</button></div>
+<div class="card"><img src="gif/jurassic.gif" data-name="17-侏罗克公园.gif" alt="侏罗克公园" loading="lazy"><div class="name">17. 侏罗克公园</div><div class="en">Jurassic Park</div><div class="plot">骑着霸王龙欢呼，脚下跑过一群美颌龙</div><button onclick="dlOne(this)">下载这张</button></div>
+<div class="card"><img src="gif/obsession.gif" data-name="18-痴克.gif" alt="痴克" loading="lazy"><div class="name">18. 痴克</div><div class="en">Obsession</div><div class="plot">折断许愿柳枝，token 金币哗哗往下掉</div><button onclick="dlOne(this)">下载这张</button></div>
+<div class="card"><img src="gif/ironman.gif" data-name="19-钢铁克.gif" alt="钢铁克" loading="lazy"><div class="name">19. 钢铁克</div><div class="en">Iron Man</div><div class="plot">焊初代机甲，方舟反应堆亮起来，开心蹦两下</div><button onclick="dlOne(this)">下载这张</button></div>
+<div class="card"><img src="gif/kiki.gif" data-name="20-魔女宅克.gif" alt="魔女宅克" loading="lazy"><div class="name">20. 魔女宅克</div><div class="en">Kiki's Delivery Service</div><div class="plot">顶着大红蝴蝶结骑扫把飞，黑猫吉吉坐在扫把头</div><button onclick="dlOne(this)">下载这张</button></div>
+</div>
+<div class="tip">保存小贴士：在微信里打开本页，长按图片可直接存到相册。<br>点“下载”会存到手机的文件/下载里，苹果手机再点分享 → 存储图像即可进相册；安卓下载后相册里一般直接就能看到。</div>
+<script src="jszip.min.js"></script>
+<script>
+function show(t){document.getElementById('msg').textContent=t;}
+function saveBlob(blob,name){var a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();setTimeout(function(){URL.revokeObjectURL(a.href);a.remove();},1000);}
+function dlOne(btn){var im=btn.parentNode.querySelector('img');fetch(im.getAttribute('src')).then(function(r){return r.blob();}).then(function(b){saveBlob(b,im.dataset.name);show('已下载：'+im.dataset.name);}).catch(function(){window.open(im.getAttribute('src'),'_blank');});}
+function dlAll(){show('正在打包 20 张，请稍等…');var zip=new JSZip();var imgs=document.querySelectorAll('.card img');var ps=[];imgs.forEach(function(im){ps.push(fetch(im.getAttribute('src')).then(function(r){return r.blob();}).then(function(b){zip.file(im.dataset.name,b);}));});Promise.all(ps).then(function(){return zip.generateAsync({type:'blob'});}).then(function(b){saveBlob(b,'克劳德电影夜-20张动态表情.zip');show('已下载：克劳德电影夜-20张动态表情.zip，解压就是 20 张原图');});}
+</script>
+</body>
+</html>
